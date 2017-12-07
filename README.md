@@ -4,24 +4,24 @@ Image recognition methods from bag of words (BoW), Spatial Pyramid Matching (SPM
 **Author:** *CyrusChiu* @ntu
 
 ## Included methods
--       Bag of words [1]
--       Spatial Pyramid Matching [2]
--       Sparse Coding SPM [3]
--       Convolutional neural networks [4]
--       CNN-SVM [5]
+-   Bag of words [1]
+-   Spatial Pyramid Matching [2]
+-   Sparse Coding SPM [3]
+-   Convolutional neural networks [4]
+-   CNN-SVM [5]
 
 ## Requirements
 #### Basic (BoW, SPM, ScSPM)
--       Python 2.7
--       NumPy
--       SciPy
--       Scikit-learn
--       OpenCV 3.0.0 + opencv_contrib [installation instructions](http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/)  
+-   Python 2.7
+-   NumPy
+-   SciPy
+-   Scikit-learn
+-   OpenCV 3.0.0 + opencv_contrib [installation instructions](http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/)  
 
 We use OpenCV here to load the image and extract SIFT descriptor only, you can use any image library if you want.
 #### Optional (CNN, CNN-SVM)
--       keras
--       Caffe, pycaffe [installation instructions](http://caffe.berkeleyvision.org/installation.html)  
+-   keras
+-   Caffe, pycaffe [installation instructions](http://caffe.berkeleyvision.org/installation.html)  
 
 ## Demo
 `example.py` training a SVM with SPM method on Caltech101 Dataset [6]
