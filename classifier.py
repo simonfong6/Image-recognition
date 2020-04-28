@@ -39,6 +39,12 @@ def svm_classifier(x_train, y_train, x_test=None, y_test=None):
 
     grid_scores_ vs cv_results_
     https://stackoverflow.com/questions/41524565/attributeerror-gridsearchcv-object-has-no-attribute-cv-results
+
+    File "example.py", line 45, in <module>
+        svm_classifier(X, y)
+    File "/Users/simon/Projects/ucsd/Image-recognition/classifier.py", line 34, in svm_classifier
+        for params, mean_score, scores in clf.grid_scores_:
+    AttributeError: 'GridSearchCV' object has no attribute 'grid_scores_'
     """
     results = clf.cv_results_
     
