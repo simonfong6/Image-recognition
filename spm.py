@@ -16,13 +16,46 @@ def build_spatial_pyramid(image, descriptor, level):
     from utils import DSIFT_STEP_SIZE as s
     assert s == step_size, "step_size must equal to DSIFT_STEP_SIZE\
                             in utils.extract_DenseSift_descriptors()"
-    h = image.shape[0] / step_size
-    w = image.shape[1] / step_size
+
+    """
+    Traceback (most recent call last):
+    File "example.py", line 42, in <module>
+        for i in range(len(x_des))]
+    File "example.py", line 42, in <listcomp>
+        for i in range(len(x_des))]
+    File "/Users/simon/Projects/ucsd/Image-recognition/spm.py", line 45, in spatial_pyramid_matching
+        pyramid += build_spatial_pyramid(image, descriptor, level=0)
+    File "/Users/simon/Projects/ucsd/Image-recognition/spm.py", line 23, in build_spatial_pyramid
+        idx_crop = np.array(list(range(len(descriptor)))).reshape(h,w)
+    TypeError: 'float' object cannot be interpreted as an integer
+    """
+    # Integer divison.
+    h = image.shape[0] // step_size
+    w = image.shape[1] // step_size
+
     idx_crop = np.array(list(range(len(descriptor)))).reshape(h,w)
     size = idx_crop.itemsize
     height, width = idx_crop.shape
     bh, bw = 2**(3-level), 2**(3-level)
-    shape = (height/bh, width/bw, bh, bw)
+
+    """
+    Traceback (most recent call last):
+    File "example.py", line 42, in <module>
+        for i in range(len(x_des))]
+    File "example.py", line 42, in <listcomp>
+        for i in range(len(x_des))]
+    File "/Users/simon/Projects/ucsd/Image-recognition/spm.py", line 59, in spatial_pyramid_matching
+        pyramid += build_spatial_pyramid(image, descriptor, level=0)
+    File "/Users/simon/Projects/ucsd/Image-recognition/spm.py", line 44, in build_spatial_pyramid
+        idx_crop, shape=shape, strides=strides)
+    File "/usr/local/lib/python3.7/site-packages/numpy/lib/stride_tricks.py", line 103, in as_strided
+        array = np.asarray(DummyArray(interface, base=x))
+    File "/usr/local/lib/python3.7/site-packages/numpy/core/_asarray.py", line 85, in asarray
+        return array(a, dtype, copy=False, order=order)
+    TypeError: 'float' object cannot be interpreted as an integer
+    """
+    # Integer divison.
+    shape = (height//bh, width//bw, bh, bw)
     strides = size * np.array([width*bh, bw, width, 1])
     crops = np.lib.stride_tricks.as_strided(
             idx_crop, shape=shape, strides=strides)
