@@ -31,9 +31,20 @@ def svm_classifier(x_train, y_train, x_test=None, y_test=None):
     print("Best parameters set found on development set:\n")
     print((clf.best_estimator_))
     print("\nGrid scores on development set:\n")
-    for params, mean_score, scores in clf.grid_scores_:
+
+    """
+    https://scikit-learn.org/0.17/modules/generated/sklearn.grid_search.GridSearchCV.html#sklearn.grid_search.GridSearchCV
+    vs
+    https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
+
+    grid_scores_ vs cv_results_
+    https://stackoverflow.com/questions/41524565/attributeerror-gridsearchcv-object-has-no-attribute-cv-results
+    """
+    results = clf.cv_results_
+    
+    for params, mean_score, std in zip(results['params'], results['mean_test_score'], results['std_test_score']):
         print(("%0.3f (+/-%0.03f) for %r"
-              % (mean_score, scores.std() * 2, params)))
+              % (mean_score, std * 2, params)))
     print("\nDetailed classification report:\n")
     print("The model is trained on the full development set.")
     print("The scores are computed on the full evaluation set.\n")
