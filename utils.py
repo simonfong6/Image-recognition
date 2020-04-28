@@ -82,7 +82,14 @@ def build_codebook(X, voc_size):
     voc_size is the "K" in K-means, k is also called vocabulary size
     Return the codebook/dictionary
     """
-    features = np.vstack((descriptor for descriptor in X))
+
+    """
+    /Users/simon/Projects/ucsd/Image-recognition/utils.py:90: FutureWarning: arrays to stack must be passed as a "sequence" type such as list or tuple. Support for non-sequence iterables such as generators is deprecated as of NumPy 1.16 and will raise an error in the future.
+  features = np.vstack((descriptor for descriptor in X)
+    """
+    # Fixes this error.
+    descriptors = [descriptor for descriptor in X]
+    features = np.vstack(descriptors)
     kmeans = KMeans(n_clusters=voc_size, n_jobs=-2)
     kmeans.fit(features)
     codebook = kmeans.cluster_centers_.squeeze()
