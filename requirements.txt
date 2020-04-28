@@ -1,3 +1,5 @@
 # https://stackoverflow.com/questions/52305578/sift-cv2-xfeatures2d-sift-create-not-working-even-though-have-contrib-instal
 opencv-python==3.4.2.16
 opencv-contrib-python==3.4.2.16
+
+sklearn
