@@ -95,5 +95,5 @@ def input_vector_encoder(feature, codebook):
     Pooling (encoding) by codebook and return
     """
     code, _ = vq.vq(feature, codebook)
-    word_hist, bin_edges = np.histogram(code, bins=range(codebook.shape[0] + 1), normed=True)
+    word_hist, bin_edges = np.histogram(code, bins=list(range(codebook.shape[0] + 1)), normed=True)
     return word_hist

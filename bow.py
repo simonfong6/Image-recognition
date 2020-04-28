@@ -17,26 +17,26 @@ if __name__ == '__main__':
     x_train, y_train = load_cifar10_data(dataset='train')
     x_test, y_test = load_cifar10_data(dataset='test')
 
-    print "SIFT feature extraction"
+    print("SIFT feature extraction")
     x_train = [extract_sift_descriptors(img) for img in x_train]
     x_test = [extract_sift_descriptors(img) for img in x_test]
 
     # Remove None in SIFT extraction
     x_train = [each for each in zip(x_train, y_train) if each[0] != None]
-    x_train, y_train = zip(*x_train)
+    x_train, y_train = list(zip(*x_train))
     x_test = [each for each in zip(x_test, y_test) if each[0] != None]
-    x_test, y_test = zip(*x_test)
+    x_test, y_test = list(zip(*x_test))
 
-    print "Train/Test split: {:d}/{:d}".format(len(y_train), len(y_test))
-    print "Codebook Size: {:d}".format(VOC_SIZE)
+    print("Train/Test split: {:d}/{:d}".format(len(y_train), len(y_test)))
+    print("Codebook Size: {:d}".format(VOC_SIZE))
 
-    print "Building the codebook, it will take some time"
+    print("Building the codebook, it will take some time")
     codebook = build_codebook(x_train, voc_size=VOC_SIZE)
-    import cPickle
+    import pickle
     with open('./bow_codebook.pkl','w') as f:
-        cPickle.dump(codebook, f)
+        pickle.dump(codebook, f)
 
-    print "Bag of words encoding"
+    print("Bag of words encoding")
     x_train = [input_vector_encoder(x, codebook) for x in x_train]
     x_train = np.asarray(x_train)
 

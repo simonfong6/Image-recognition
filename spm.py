@@ -18,7 +18,7 @@ def build_spatial_pyramid(image, descriptor, level):
                             in utils.extract_DenseSift_descriptors()"
     h = image.shape[0] / step_size
     w = image.shape[1] / step_size
-    idx_crop = np.array(range(len(descriptor))).reshape(h,w)
+    idx_crop = np.array(list(range(len(descriptor)))).reshape(h,w)
     size = idx_crop.itemsize
     height, width = idx_crop.shape
     bh, bw = 2**(3-level), 2**(3-level)
@@ -71,32 +71,32 @@ if __name__ == '__main__':
     x_train, y_train = load_cifar10_data(dataset='train')
     x_test, y_test = load_cifar10_data(dataset='test')
 
-    print "Dense SIFT feature extraction"
+    print("Dense SIFT feature extraction")
     x_train_feature = [extract_DenseSift_descriptors(img) for img in x_train]
     x_test_feature = [extract_DenseSift_descriptors(img) for img in x_test]
-    x_train_kp, x_train_des = zip(*x_train_feature)
-    x_test_kp, x_test_des = zip(*x_test_feature)
+    x_train_kp, x_train_des = list(zip(*x_train_feature))
+    x_test_kp, x_test_des = list(zip(*x_test_feature))
 
-    print "Train/Test split: {:d}/{:d}".format(len(y_train), len(y_test))
-    print "Codebook Size: {:d}".format(VOC_SIZE)
-    print "Pyramid level: {:d}".format(PYRAMID_LEVEL)
-    print "Building the codebook, it will take some time"
+    print("Train/Test split: {:d}/{:d}".format(len(y_train), len(y_test)))
+    print("Codebook Size: {:d}".format(VOC_SIZE))
+    print("Pyramid level: {:d}".format(PYRAMID_LEVEL))
+    print("Building the codebook, it will take some time")
     codebook = build_codebook(x_train_des, VOC_SIZE)
-    import cPickle
+    import pickle
     with open('./spm_lv1_codebook.pkl','w') as f:
-        cPickle.dump(codebook, f)
+        pickle.dump(codebook, f)
 
-    print "Spatial Pyramid Matching encoding"
+    print("Spatial Pyramid Matching encoding")
     x_train = [spatial_pyramid_matching(x_train[i],
                                         x_train_des[i],
                                         codebook,
                                         level=PYRAMID_LEVEL)
-                                        for i in xrange(len(x_train))]
+                                        for i in range(len(x_train))]
 
     x_test = [spatial_pyramid_matching(x_test[i],
                                        x_test_des[i],
                                        codebook,
-                                       level=PYRAMID_LEVEL) for i in xrange(len(x_test))]
+                                       level=PYRAMID_LEVEL) for i in range(len(x_test))]
 
     x_train = np.asarray(x_train)
     x_test = np.asarray(x_test)

@@ -9,11 +9,11 @@ def path_getter(path):
     x, y = [], []
     for directory in paths:
         for path in directory:
-            print path
+            print(path)
             x.append(path)
             y.append(os.path.dirname(path).split(
                     '/')[-1].split('.')[0])
     with open("{}/DatasetFile.txt".format(os.path.dirname(dirs[0])),'w')as f:
-        for i in xrange(len(x)):
+        for i in range(len(x)):
             f.write("{} {}\n".format(y[i], x[i]))
     return x, y
