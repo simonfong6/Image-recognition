@@ -1,3 +1,6 @@
+import os
+import pickle
+
 from utils import load_my_data
 from utils import extract_DenseSift_descriptors
 from utils import build_codebook
@@ -28,11 +31,20 @@ print("Dense SIFT feature extraction")
 x_feature = [extract_DenseSift_descriptors(img) for img in X]
 x_kp, x_des = list(zip(*x_feature))
 
-print("Building the codebook, it will take some time")
-codebook = build_codebook(x_des, spm.VOC_SIZE)
-#import cPickle
-#with open('./data/codebook_spm.pkl','w') as f:
-#    cPickle.dump(codebook, f)
+
+CODE_BOOK_PATH = './data/codebook_spm.pkl'
+if os.path.exists(CODE_BOOK_PATH):
+    print("Codebook found at {}".format(CODE_BOOK_PATH))
+    print("Loading codebook...")
+    with open(CODE_BOOK_PATH,'rb') as f:
+        codebook = pickle.load(f)
+else:
+    print("Building the codebook, it will take some time")
+    codebook = build_codebook(x_des, spm.VOC_SIZE)
+
+    os.makedirs(os.path.dirname(CODE_BOOK_PATH), exist_ok=True)
+    with open(CODE_BOOK_PATH,'wb') as f:
+        pickle.dump(codebook, f)
 
 print("Spatial Pyramid Matching encoding")
 X = [spm.spatial_pyramid_matching(X[i],
