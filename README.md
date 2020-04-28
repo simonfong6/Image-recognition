@@ -12,7 +12,7 @@ Image recognition methods from bag of words (BoW), Spatial Pyramid Matching (SPM
 
 ## Requirements
 #### Basic (BoW, SPM, ScSPM)
--   Python 2.7
+-   Python 3.7.7
 -   NumPy
 -   SciPy
 -   Scikit-learn
@@ -27,7 +27,7 @@ We use OpenCV here to load the image and extract SIFT descriptor only, you can u
 `example.py` training a SVM with SPM method on Caltech101 Dataset [6]
 
 ```
-$python example.py --train Caltech101/DatasetFile.txt
+$python3 example.py --train Caltech101/DatasetFile.txt
 ```
 
 
