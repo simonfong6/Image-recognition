@@ -10,6 +10,16 @@ Image recognition methods from bag of words (BoW), Spatial Pyramid Matching (SPM
 -   Convolutional neural networks [4]
 -   CNN-SVM [5]
 
+## Updates to work with Python 3
+Install a specific version of OpenCV to avoid the patented SIFT [error](https://stackoverflow.com/questions/52305578/sift-cv2-xfeatures2d-sift-create-not-working-even-though-have-contrib-instal
+).
+
+OpenCV 3.4.2.16
+
+```
+pip3 install -r requirements.txt
+```
+
 ## Requirements
 #### Basic (BoW, SPM, ScSPM)
 -   Python 3.7.7
@@ -27,7 +37,7 @@ We use OpenCV here to load the image and extract SIFT descriptor only, you can u
 `example.py` training a SVM with SPM method on Caltech101 Dataset [6]
 
 ```
-$python3 example.py --train Caltech101/DatasetFile.txt
+$ python3 example.py --train Caltech101/DatasetFile.txt
 ```
 
 
